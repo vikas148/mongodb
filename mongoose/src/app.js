@@ -24,6 +24,10 @@ const iitStudentSchema = new mongoose.Schema({
     date    : {
         type :Date,
         default: Date.now
+    },
+
+    age : {
+          type : Number,
     }
 
 })
@@ -94,6 +98,7 @@ const createDocument = async()=>{
             stuid : 202001,
             branch : "cse",
             course : "btech",
+            date: 22,
             active : true
             })
 
@@ -103,6 +108,7 @@ const createDocument = async()=>{
                 stuid : 202002,
                 branch : "cse",
                 course : "btech",
+                age: 33,
                 active : true
                 })
 
@@ -112,8 +118,20 @@ const createDocument = async()=>{
                     stuid : 202003,
                     branch : "cse",
                     course : "btech",
+                    age: 26,
                     active : true
-                    })    
+                    })
+                    
+                    
+                const Student4 = new IitStudent ({
+                    name : "siya",
+                
+                    stuid : 202003,
+                    branch : "cse",
+                    course : "btech",
+                    age: 29,
+                    active : true
+                    })
         
         const result =await IitStudent.insertMany([Student1,Student2,Student3]);
         console.log(result);
@@ -129,10 +147,33 @@ const createDocument = async()=>{
 //tut 53 how to read mongo document
 //try catch use krna hai isme bhi
 
-const getDocument = async()=>{
-//  const result  =await IitStudent.find({name: "Yash"})//query methods can be used here 
- const result  =await IitStudent.find();
- console.log(result);
-}
+// const getDocument = async()=>{
+// //  const result  =await IitStudent.find({name: "Yash"})//query methods can be used here 
+//  const result  =await IitStudent.find();
+//  console.log(result);
+// }
 
-getDocument();
+// getDocument();
+
+
+const getDocument = async()=>{
+    //  const result  =await IitStudent.find({name: "Yash"})//query methods can be used here 
+    //  const result  =await IitStudent.find({branch: {$in : ["cse","civil"]}});
+    //  const result  =await IitStudent.find({$or : [{age:""},{branch:"cse"}]});
+    //  const result  =await IitStudent.find({$or : [{age:""},{branch:"cse"}]}).count();
+    //  const result  =await IitStudent.find({$and : [{branch:"cse"},{name:"Yash"}]});
+     const result  =await IitStudent.find().select({age:1}).sort({age:-1});         //1 or -1;
+
+     console.log(result);
+    }
+    
+    getDocument();
+
+    //tut 57 use try catch
+
+    const updateDocument =async(_id)=>{
+     const result = await IitStudent.updateOne({_id},{
+        $set:{course:"Btech"}
+     });    
+    }
+    updateDocument("639b53a87f8660f8f408297b");
