@@ -171,9 +171,24 @@ const getDocument = async()=>{
 
     //tut 57 use try catch
 
-    const updateDocument =async(_id)=>{
-     const result = await IitStudent.updateOne({_id},{
-        $set:{course:"Btech"}
-     });    
+    // const updateDocument =async(_id)=>{
+    //  const result = await IitStudent.updateOne({_id},{
+    //     $set:{course:"Btech"}
+    //  });    
+    // }
+    // //updateDocument("639b53a87f8660f8f408297b");
+
+    //tut 58 delete the document
+
+   const deleteDoument = async(_id)=>{
+    try{
+        const result = await IitStudent.deleteOne({_id} )
+        console.log(result);
+    }catch(err){
+        console.log(err);
     }
-    updateDocument("639b53a87f8660f8f408297b");
+    
+   }
+
+
+    deleteDoument("63a0900f692a75fd9c2d6190")
